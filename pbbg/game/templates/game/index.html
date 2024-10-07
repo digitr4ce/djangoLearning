@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'pbbg/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    {% if player_list %}
+        <ul>
+            {% for player in player_list %}
+                <li><a href="{% url 'game:player' player.id %}">{{player.name}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>There are no players in the world as of yet.</h1>
+    {% endif %}
+</body>
+</html>

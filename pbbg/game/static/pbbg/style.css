@@ -1,0 +1,12 @@
+body {
+    background: green url("images/51_t.png") no-repeat;
+}
+
+li a {
+    color: green;
+}
+
+a:visited {
+    color: red;
+    background-color: green;
+}
