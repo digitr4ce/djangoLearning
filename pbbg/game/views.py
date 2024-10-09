@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework import permissions
+from rest_framework import viewsets
 
 from django.contrib.auth.models import User
 
@@ -12,8 +13,7 @@ from .permissions import IsOwnerOrReadOnly
 
 class PlayerViewSet(viewsets.ModelViewSet):
     """
-    This ViewSet automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
+    This ViewSet automatically provides `list`, `create`, `retrieve`, `update` and `destroy` actions.
     """
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
@@ -29,10 +29,3 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': reverse('game:user-list', request=request, format=format),
-        'players': reverse('game:player-list', request=request, format=format)
-    })
