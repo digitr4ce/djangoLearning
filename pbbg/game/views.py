@@ -10,31 +10,23 @@ from .models import Player
 from .serializers import PlayerSerializer, UserSerializer
 from .permissions import IsOwnerOrReadOnly
 
-class PlayerList(generics.ListCreateAPIView):
+class PlayerViewSet(viewsets.ModelViewSet):
     """
-    List all players, or create a new player.
+    This ViewSet automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
     """
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class PlayerDetail(generics.RetrieveUpdateDestroyAPIView):
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    Retrieve, update or delete a player instance.
+    This viewset automatically provides `list` and `retrieve` actions.
     """
-    queryset = Player.objects.all()
-    serializer_class = PlayerSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
-
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
