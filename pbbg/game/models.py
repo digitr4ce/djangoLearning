@@ -6,6 +6,7 @@ class ResourceTypes(models.Model):
         return self.name
 
 class Player(models.Model):
+    owner = models.ForeignKey('auth.User', related_name='players', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     health = models.IntegerField(default=0)
     hunger = models.IntegerField(default=0)
