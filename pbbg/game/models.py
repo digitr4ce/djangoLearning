@@ -28,4 +28,31 @@ class InventoryItems(models.Model):
         return f'{self.resource_type.name}, quantity {self.quantity}, in {self.inventory}'
 
 
+class House(models.Model):
+    pass
 
+class RpgStats(models.Model):
+    """
+    Strength, wisdom, int etc. Enemies, plants, player all have stats.
+    """
+    pass
+
+class Enemies(models.Model):
+    """
+    References rpg stats, can have inventory (dropped upon defeat).
+    """
+    pass
+
+class Equipment(models.Model):
+    """
+    Columns: head, hands, torso, legs etc per row, with an entity id, referencing items in the entity inventory.
+    """
+    pass
+
+
+# TODO: Remodel as follows:
+
+# Entity  ========= equips, health, name etc.
+# Characters ======== has an entity id, hunger, all the character specific things
+
+# Entity is the generic, characters get extra stats and powers.
