@@ -12,13 +12,7 @@ class RpgStats(models.Model):
     dexterity = models.IntegerField(default=1)
     charisma = models.IntegerField(default=1)
 
-class Entities(models.Model):
-    name = models.CharField(max_length=100)
-    health = models.IntegerField(default=0)
-    stats = models.ForeignKey(RpgStats, on_delete=models.CASCADE)
-
 class Equipment(models.Model):
-    owner = models.ForeignKey(Entities, on_delete=models.CASCADE)
     stat_upgrades = models.ForeignKey(RpgStats, on_delete=models.CASCADE)
 
     class EquipmentTypes(models.TextChoices):
@@ -45,6 +39,12 @@ class Equipment(models.Model):
         choices = EquipmentMaterials.choices,
         default = None,
     )
+
+class Entities(models.Model):
+    name = models.CharField(max_length=100)
+    health = models.IntegerField(default=0)
+    stats = models.ForeignKey(RpgStats, on_delete=models.CASCADE)
+    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, default=None, blank=True, null=True)
 
 class Player(models.Model):
     owner = models.ForeignKey('auth.User', related_name='players', on_delete=models.CASCADE)
