@@ -7,11 +7,12 @@ from . import views
 from .views import PlayerViewSet, UserViewSet
 
 router = DefaultRouter()
-router.register(r'players', views.PlayerViewSet, basename='player')
-router.register(r'users', views.UserViewSet, basename='user')
+router.register('players', views.PlayerViewSet, basename='player')
+router.register('users', views.UserViewSet, basename='user')
 
 
 app_name = "game"
 urlpatterns = [
     path('', include(router.urls)),
+    path('actions/', views.ActionsView.as_view(), name='actions')
 ]

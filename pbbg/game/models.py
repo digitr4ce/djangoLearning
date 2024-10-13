@@ -5,6 +5,15 @@ class ResourceTypes(models.Model):
     def __str__(self):
         return self.name
 
+class Actions(models.Model):
+    action_type = models.CharField(max_length=20)
+    def __str__(self):
+        return self.action_type
+
+# Add action items: search (for wood, at first), explore - has a chance to generate enemy.
+# Add view with a post to Actions, with the payload being what action they want to do.
+# Would need extending later with multiple views, but this will work for now.
+
 class RpgStats(models.Model):
     strength = models.IntegerField(default=1)
     intelligence = models.IntegerField(default=1)
@@ -51,7 +60,7 @@ class Player(models.Model):
     identity = models.ForeignKey(Entities, on_delete=models.CASCADE)
     hunger = models.IntegerField(default=0)
     def __str__(self):
-        return f'Name: {self.name} - Health: {self.health} - Hunger: {self.hunger}'
+        return f'Name: {self.identity.name} - Health: {self.identity.health} - Hunger: {self.hunger}'
     def is_hungry(self):
         return self.hunger >= 60
 

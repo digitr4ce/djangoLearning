@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from game.models import Player, InventoryItems, Inventory, ResourceTypes, RpgStats, Entities, Equipment, House
+from game.models import Player, InventoryItems, Inventory, ResourceTypes, RpgStats, Entities, Equipment, House, Actions
 from django.contrib.auth.models import User
 
 class ResourceTypesSerializer(serializers.ModelSerializer):
@@ -77,3 +77,8 @@ class HouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = House
         fields = ['id', 'owner']
+
+class ActionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actions
+        fields = ['id', 'action_type']
